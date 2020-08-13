@@ -84,15 +84,32 @@ def move():
         head.setx(x + 20)
 
 
+def quit_exit():
+    global running
+    running = False
+
+
 # Keyboard
 win.listen()
-win.onkeypress(go_up, "w" or "W")
-win.onkeypress(go_down, "s" or "S")
-win.onkeypress(go_left, "a" or "A")
-win.onkeypress(go_right, "d" or "D")
+win.onkeypress(go_up, "Up")
+win.onkeypress(go_up, "w")
+
+win.onkeypress(go_down, "Down")
+win.onkeypress(go_down, "s")
+
+win.onkeypress(go_left, "Left")
+win.onkeypress(go_left, "a")
+
+win.onkeypress(go_right, "Right")
+win.onkeypress(go_right, "d")
+
+win.onkeypress(quit_exit, "Escape")
+win.onkeypress(quit_exit, "Delete")
+
+running = True
 
 # Main loop
-while True:
+while running:
     win.update()
 
     # Death Conditions
@@ -110,7 +127,8 @@ while True:
         delay -= 0.2
 
         pen.clear()
-        pen.write("Score : {} | Highscore: {}".format(score, highScore), align="center", font=("Consolas", 24, "normal"))
+        pen.write("Score : {} | Highscore: {}".format(score, highScore), align="center",
+                  font=("Consolas", 24, "normal"))
 
     if head.distance(food) < 20:
         # Random Move
@@ -135,7 +153,8 @@ while True:
             highScore = score
 
         pen.clear()
-        pen.write("Score : {} | Highscore: {}".format(score, highScore), align="center", font=("Consolas", 24, "normal"))
+        pen.write("Score : {} | Highscore: {}".format(score, highScore), align="center",
+                  font=("Consolas", 24, "normal"))
 
     # Move
     for index in range(len(segments) - 1, 0, -1):
@@ -165,8 +184,10 @@ while True:
 
             delay -= 0.2
             pen.clear()
-            pen.write("Score : {} | Highscore: {}".format(score, highScore), align="center", font=("Consolas", 24, "normal"))
+            pen.write("Score : {} | Highscore: {}".format(score, highScore), align="center",
+                      font=("Consolas", 24, "normal"))
     delay = 0.1
     time.sleep(delay)
 
-win.mainloop()
+
+win.bye()
